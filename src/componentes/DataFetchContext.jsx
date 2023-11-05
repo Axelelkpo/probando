@@ -13,14 +13,12 @@ const DataFetchProvider = ({ children }) => {
     tasasInteres: [],
   });
 
-  useEffect(() => {
-    fetch("../../datos.json")
-      .then((response) => response.json())
-      .then((data) => setOpciones(data))
-      .catch((error) => {
-        console.error("Error al cargar las opciones:", error);
-      });
-  }, []);
+  fetch("../../datos.json")
+    .then((response) => response.json())
+    .then((data) => setOpciones(data))
+    .catch((error) => {
+      console.error("Error al cargar las opciones:", error);
+    });
 
   return (
     <DataFetchContext.Provider value={opciones}>
