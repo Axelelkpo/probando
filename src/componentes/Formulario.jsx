@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { calcularTotal } from "../helpers";
-import { useDataFetch } from "./DataFetchContext";
+import { useDataContext } from "./DataContext";
+// import { useDataFetch } from "./DataFetchContext";
 // import data from "../../datos.json";
 const Formulario = ({
   cantidad,
@@ -12,7 +13,9 @@ const Formulario = ({
   setTotal,
 }) => {
   const [error, setError] = useState(false);
-  const opciones = useDataFetch();
+  const globalData = useDataContext(); // Accede a los datos desde el contexto global.
+
+  // const opciones = useDataFetch();
   const handleCantidadChange = (e) => {
     const newValue = e.target.value;
     setCantidad(newValue);
@@ -66,7 +69,7 @@ const Formulario = ({
             <label>Cantidad Prestamo</label>
             <select onChange={handleCantidadChange} value={cantidad}>
               <option value="">Seleccionar</option>
-              {opciones.cantidadPrestamo.map((valor) => (
+              {globalData.cantidadPrestamo.map((valor) => (
                 <option key={valor} value={valor}>
                   {valor}
                 </option>
@@ -77,7 +80,7 @@ const Formulario = ({
             <label>Plazo para pagar</label>
             <select onChange={handlePlazoChange} value={plazo}>
               <option value="">Seleccionar</option>
-              {opciones.plazoPagar.map((plazo) => (
+              {globalData.plazoPagar.map((plazo) => (
                 <option key={plazo} value={plazo}>
                   {plazo} meses
                 </option>
@@ -88,7 +91,7 @@ const Formulario = ({
             <label>Tasa de Interés</label>
             <select onChange={handleTasaInteresChange} value={tasaInteres}>
               <option value="">Seleccionar</option>
-              {opciones.tasasInteres.map((tasa) => (
+              {globalData.tasasInteres.map((tasa) => (
                 <option key={tasa} value={tasa}>
                   {tasa * 100}% ({tasa})
                 </option>
